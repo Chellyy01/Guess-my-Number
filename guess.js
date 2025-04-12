@@ -18,6 +18,7 @@ let highscore = 0;
 const correctNumber = function () {
   message.textContent = `Correct number!`;
   document.body.style.backgroundColor = "green";
+  box.textContent = randomNumber;
 
   if (scoreValue > highscore) {
     highscore = scoreValue;
@@ -27,7 +28,7 @@ const correctNumber = function () {
 
 const reset = function () {
   randomNumber = Math.floor(Math.random() * 20) + 1;
-  box.textContent = randomNumber;
+  box.textContent = "?";
 
   message.textContent = "Start guessing";
   input.value = "";
@@ -36,6 +37,12 @@ const reset = function () {
   document.body.style.backgroundColor = "black";
   check.disabled = false;
 };
+
+input.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    check.click(); 
+  }
+});
 
 check.addEventListener("click", function () {
   const userGuess = +input.value;
@@ -47,6 +54,7 @@ check.addEventListener("click", function () {
   //if user wins
   if (userGuess === randomNumber) {
     correctNumber();
+    
 
     // if user loses
     //if guess is greater
